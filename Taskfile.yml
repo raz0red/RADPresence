@@ -5,8 +5,10 @@ version: "3"
 #
 # Common workflows:
 #   task build:image   Build the Docker builder image (once, then cached)
-#   task build         Build all platform binaries
-#   task build:windows Build Windows binary only (fastest for local testing)
+#   task build         Build all platforms (windows, linux, macos)
+#   task build:windows Build Windows amd64 only
+#   task build:linux   Build Linux amd64 only
+#   task build:mac     Build macOS amd64 + arm64 only
 #   task fmt           Auto-format all Go source files
 #   task validate      Format + vet + lint (run before pushing)
 
@@ -33,8 +35,16 @@ tasks:
     cmd: "{{.DOCKER_RUN}} sh build/build.sh"
 
   build:windows:
-    desc: Build Windows amd64 binary only (fastest for local testing)
+    desc: Build Windows amd64 binary only
     cmd: "{{.DOCKER_RUN}} sh build/build.sh windows-only"
+
+  build:linux:
+    desc: Build Linux amd64 binary only
+    cmd: "{{.DOCKER_RUN}} sh build/build.sh linux-only"
+
+  build:mac:
+    desc: Build macOS amd64 + arm64 binaries only
+    cmd: "{{.DOCKER_RUN}} sh build/build.sh mac-only"
 
   # ── Code quality ──────────────────────────────────────────────────────────
 
@@ -67,8 +77,4 @@ tasks:
 
   clean:
     desc: Remove build artifacts (dist/)
-    cmds:
-      - cmd: rm -rf dist/
-        platforms: [linux, darwin]
-      - cmd: if exist dist rmdir /s /q dist
-        platforms: [windows]
+    cmd: rm -rf dist/

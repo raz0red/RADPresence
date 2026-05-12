@@ -45,9 +45,13 @@ You should see log output when you switch games. Press Ctrl+C to stop.
 radpresence install
 radpresence start
 
-# macOS / Linux — run with sudo
+# macOS — run with sudo
 sudo radpresence install
 sudo radpresence start
+
+# Linux — no sudo needed (installs a systemd user service)
+radpresence install
+radpresence start
 ```
 
 ---
@@ -74,33 +78,27 @@ sudo radpresence start
 
 Requires [Docker](https://www.docker.com/) and [Task](https://taskfile.dev).
 
-**First-time setup — build the Docker builder image:**
+**First-time setup — build the Docker builder image (once):**
 
 ```
 task build:image
 ```
 
-**Windows binary only (fastest for local testing):**
-
-```
-task build:windows
-```
-
-**All platforms (Windows, Linux, macOS amd64 + arm64):**
-
-```
-task build
-```
-
-Binaries are written to `dist/`.
-
-### All Tasks
+### Build Tasks
 
 | Task | Description |
 |---|---|
-| `task build:image` | Build the Docker builder image (once, then cached) |
-| `task build` | Build all platform binaries |
-| `task build:windows` | Build Windows binary only |
+| `task build` | All platforms (Windows, Linux, macOS amd64 + arm64) |
+| `task build:windows` | Windows amd64 only |
+| `task build:linux` | Linux amd64 only |
+| `task build:mac` | macOS amd64 + arm64 only |
+
+Binaries are written to `dist/`.
+
+### Dev Tasks
+
+| Task | Description |
+|---|---|
 | `task fmt` | Auto-format all Go source files |
 | `task fix` | Auto-format and apply golangci-lint auto-fixes |
 | `task vet` | Run `go vet` |
