@@ -9,7 +9,7 @@ Inspired by [CheevoPresence](https://github.com/denzi-gh/CheevoPresence) — rei
 ## Features
 
 - Polls your RetroAchievements session every 10 seconds (configurable)
-- Updates Discord with the game title, console, achievement progress, and links to your RA profile and game page
+- Updates Discord with the game title, cover art, console, achievement progress, elapsed timer, and links to your RA profile and game page
 - Clears presence automatically when you stop playing
 - Runs as a native background service (Windows SCM / macOS launchd / Linux systemd) or in the foreground for testing
 - Single binary — no runtime, no installer, no dependencies
@@ -34,7 +34,7 @@ radiscordpresence set --username YOUR_RA_USERNAME --apikey YOUR_API_KEY
 radiscordpresence run
 ```
 
-You should see log output every 10 seconds. Press Ctrl+C to stop.
+You should see log output when you switch games. Press Ctrl+C to stop.
 
 ### 4. Install as a background service (optional)
 
@@ -56,6 +56,7 @@ sudo radiscordpresence start
 |---|---|
 | `set --username X --apikey Y` | Save credentials to config |
 | `set --interval 30` | Change the poll interval (seconds) |
+| `set` | Show current config |
 | `run` | Run in the foreground, Ctrl+C to stop |
 | `run --username X --apikey Y` | Run with inline credentials (no saved config needed) |
 | `install` | Register as a system service |
@@ -63,32 +64,47 @@ sudo radiscordpresence start
 | `start` | Start the installed service |
 | `stop` | Stop the running service |
 | `status` | Show service status |
+| `version` | Print version information |
 
 ---
 
-## Building
+## Building from Source
 
-Requires [Docker](https://www.docker.com/).
+Requires [Docker](https://www.docker.com/) and [Task](https://taskfile.dev).
 
-**Windows (PowerShell) — Windows binary only (fastest for local testing):**
+**First-time setup — build the Docker builder image:**
 
-```powershell
-.\scripts\build.ps1 -WindowsOnly
+```
+task build:image
+```
+
+**Windows binary only (fastest for local testing):**
+
+```
+task build:windows
 ```
 
 **All platforms (Windows, Linux, macOS amd64 + arm64):**
 
-```powershell
-.\scripts\build.ps1
 ```
-
-On subsequent runs, skip the image rebuild:
-
-```powershell
-.\scripts\build.ps1 -SkipImageBuild
+task build
 ```
 
 Binaries are written to `dist/`.
+
+### All Tasks
+
+| Task | Description |
+|---|---|
+| `task build:image` | Build the Docker builder image (once, then cached) |
+| `task build` | Build all platform binaries |
+| `task build:windows` | Build Windows binary only |
+| `task fmt` | Auto-format all Go source files |
+| `task fix` | Auto-format and apply golangci-lint auto-fixes |
+| `task vet` | Run `go vet` |
+| `task lint` | Run `golangci-lint` |
+| `task validate` | Format + vet + lint (run before pushing) |
+| `task clean` | Remove `dist/` |
 
 ---
 
