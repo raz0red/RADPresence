@@ -32,7 +32,11 @@ Log in to [retroachievements.org](https://retroachievements.org/), go to **Setti
 radpresence set --username YOUR_RA_USERNAME --apikey YOUR_API_KEY
 ```
 
-### 3. Test in the foreground (Discord must be running)
+### 3. Make sure Discord is running
+
+The Discord desktop app must be running on the same machine and logged in to the account you want the Rich Presence posted to. RAD Presence communicates with Discord over a local IPC socket — it does not work with the browser version of Discord.
+
+### 4. Test in the foreground
 
 ```
 radpresence run
@@ -40,7 +44,7 @@ radpresence run
 
 You should see log output when you switch games. Press Ctrl+C to stop.
 
-### 4. Install as a background service (optional)
+### 5. Install as a background service (optional)
 
 ```
 # Windows — run as Administrator
