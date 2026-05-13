@@ -2,9 +2,7 @@
 
 **RAD Presence** = RetroAchievements Discord Presence.
 
-A background service that mirrors your [RetroAchievements](https://retroachievements.org/) session to [Discord Rich Presence](https://discord.com/developers/docs/rich-presence/overview).
-
-Inspired by [CheevoPresence](https://github.com/denzi-gh/CheevoPresence) — reimagined in Go as a cross-platform background service with no UI dependencies and a single self-contained binary.
+A cross-platform background service that mirrors your [RetroAchievements](https://retroachievements.org/) session to [Discord Rich Presence](https://discord.com/developers/docs/rich-presence/overview) — built in Go as a single self-contained binary with no UI dependencies.
 
 ![Discord Rich Presence screenshot](.github/assets/screenshot.png)
 
