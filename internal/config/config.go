@@ -30,7 +30,7 @@ type Config struct {
 
 // Default returns a Config with sensible defaults.
 func Default() Config {
-	return Config{Interval: 10}
+	return Config{Interval: 30}
 }
 
 // Dir returns the platform-appropriate config directory for this app.
@@ -65,7 +65,7 @@ func Load() (Config, error) {
 		return Default(), fmt.Errorf("parsing config: %w", err)
 	}
 	if cfg.Interval <= 0 {
-		cfg.Interval = 10
+		cfg.Interval = 30
 	}
 	return cfg, nil
 }

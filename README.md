@@ -1,6 +1,6 @@
 # RAD Presence
 
-**RAD Presence** = RetroAchievements Discord Rich Presence.
+**RAD Presence** = RetroAchievements Discord Presence.
 
 A background service that mirrors your [RetroAchievements](https://retroachievements.org/) session to [Discord Rich Presence](https://discord.com/developers/docs/rich-presence/overview).
 
@@ -12,7 +12,7 @@ Inspired by [CheevoPresence](https://github.com/denzi-gh/CheevoPresence) — rei
 
 ## Features
 
-- Polls your RetroAchievements session every 10 seconds (configurable)
+- Polls your RetroAchievements session every 30 seconds (configurable)
 - Updates Discord with the game title, cover art, console, achievement progress, elapsed timer, and links to your RA profile and game page
 - Clears presence automatically when you stop playing
 - Runs as a native background service (Windows SCM / macOS launchd / Linux systemd) — starts on login, no interaction needed
@@ -25,7 +25,7 @@ Inspired by [CheevoPresence](https://github.com/denzi-gh/CheevoPresence) — rei
 
 ### 1. Get your API key
 
-Log in to [retroachievements.org](https://retroachievements.org/), go to **Settings → Web API Key**, and copy it.
+Log in to [retroachievements.org](https://retroachievements.org/), go to [**Settings → Web API Key**](https://retroachievements.org/settings), and copy it.
 
 ### 2. Save your credentials
 

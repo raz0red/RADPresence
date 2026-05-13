@@ -125,7 +125,7 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 	cfg, _ := config.Load()
 	interval := cfg.Interval
 	if interval == 0 {
-		interval = 10
+		interval = 30
 	}
 	webPort := cfg.WebPort
 	if webPort == 0 {

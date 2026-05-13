@@ -166,7 +166,7 @@ func cmdSet() *cobra.Command {
 	}
 	cmd.Flags().StringVar(&username, "username", "", "RetroAchievements username")
 	cmd.Flags().StringVar(&apikey, "apikey", "", "RetroAchievements Web API key")
-	cmd.Flags().IntVar(&interval, "interval", 10, "Poll interval in seconds")
+	cmd.Flags().IntVar(&interval, "interval", 30, "Poll interval in seconds")
 	cmd.Flags().BoolVar(&hideButtons, "hide-buttons", false, "Hide RA Profile/Game Page buttons (use --hide-buttons=false to re-enable)")
 	cmd.Flags().BoolVar(&hideAchievements, "hide-achievements", false, "Hide achievement count from presence (use --hide-achievements=false to re-enable)")
 	cmd.Flags().BoolVar(&webUI, "web-ui", false, "Enable the web UI (use --web-ui=false to disable)")

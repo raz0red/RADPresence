@@ -32,7 +32,7 @@ type Worker struct {
 // New creates a Worker with the given credentials and poll interval.
 func New(username, apiKey string, intervalSecs int, hideButtons, hideAchievements bool) *Worker {
 	if intervalSecs <= 0 {
-		intervalSecs = 10
+		intervalSecs = 30
 	}
 	return &Worker{
 		ra:               ra.New(username, apiKey),

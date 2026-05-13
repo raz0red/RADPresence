@@ -292,6 +292,33 @@
       font-weight: 500;
       margin-bottom: 0.3rem;
     }
+    .field-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.3rem;
+    }
+    .field-header label { margin-bottom: 0; }
+    .field-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.35rem;
+      min-height: 1.4rem;
+    }
+    .link-btn-sm {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--accent);
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .link-btn-sm:hover { background: var(--border); }
     .field input[type=text],
     .field input[type=password],
     .field input[type=number] {
@@ -370,6 +397,7 @@
 </head>
 <body>
 <div class="toast" id="toast"></div>
+<div id="disconnected-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:200;background:#3a1a1a;border-bottom:1px solid #e05555;color:#e07070;text-align:center;padding:0.55rem 1rem;font-size:0.88rem;font-weight:600;">⚠ Service unreachable — RAD Presence may not be running.</div>
 
 <div class="header">
   <h1>RAD Presence <span class="version">{{.Version}}</span></h1>
@@ -451,7 +479,10 @@
         <input type="password" id="api_key" name="api_key"
                {{if .HasAPIKey}}placeholder="API key is set — enter a new value to change it"
                {{else}}placeholder="Your RetroAchievements Web API key"{{end}}>
-        {{if .HasAPIKey}}<div class="hint">Leave blank to keep the current key.</div>{{end}}
+        <div class="field-footer">
+          {{if .HasAPIKey}}<div class="hint" style="margin:0">Leave blank to keep the current key.</div>{{else}}<span></span>{{end}}
+          <a href="https://retroachievements.org/settings" target="_blank" rel="noopener noreferrer" class="link-btn-sm">Get API Key ↗</a>
+        </div>
       </div>
     </div>
 
@@ -564,6 +595,7 @@
   // ── Status refresh ────────────────────────────────────────────
   function refreshStatus() {
     fetch('/api/status').then(r => r.json()).then(function(s) {
+      document.getElementById('disconnected-banner').style.display = 'none';
       document.getElementById('dot-ra').className      = 'dot ' + (s.ra_connected      ? 'green' : 'red');
       document.getElementById('dot-discord').className = 'dot ' + (s.discord_connected ? 'green' : 'red');
 
@@ -672,7 +704,9 @@
 
       var lp = document.getElementById('last-poll');
       lp.textContent = s.last_poll_time ? 'Last polled ' + timeSince(s.last_poll_time) : '';
-    }).catch(function() {});
+    }).catch(function() {
+      document.getElementById('disconnected-banner').style.display = '';
+    });
   }
 
   // ── Log refresh ───────────────────────────────────────────────
