@@ -666,6 +666,8 @@
         notPlaying.style.display = '';
         playCard.style.display   = 'none';
         gameBtns.style.display   = 'none';
+        var gameCard = document.getElementById('playing-card').parentElement;
+        gameCard.onclick = null;
       }
 
       var lp = document.getElementById('last-poll');

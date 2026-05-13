@@ -17,7 +17,7 @@ Inspired by [CheevoPresence](https://github.com/denzi-gh/CheevoPresence) — rei
 - Clears presence automatically when you stop playing
 - Runs as a native background service (Windows SCM / macOS launchd / Linux systemd) — starts on login, no interaction needed
 - Single binary — no runtime, no installer, no dependencies
-- Optional web UI for live status, log viewing, and settings — all without restarting the service
+- Optional web UI for live status, log viewing, and settings
 
 ---
 
@@ -131,7 +131,7 @@ RAD Presence includes an optional browser-based UI that gives you a live view of
 radpresence set --web-ui
 ```
 
-Then either restart the service, or if you're running in the foreground with `radpresence run`, the server starts automatically on the next poll cycle. Open it in your browser with:
+The web server starts automatically on the next poll cycle — no restart needed. Open it in your browser with:
 
 ```
 radpresence open
@@ -168,7 +168,7 @@ The Log tab shows a scrolling view of the last 500 log lines from the running se
 | `radpresence set --web-port 8080` | Change the port (default: 7842) |
 | `radpresence open` | Open the web UI in your default browser |
 
-> All settings — including credentials, poll interval, and port — can be changed live from the web UI or via `radpresence set` while the service is running. No restart is needed.
+> All settings take effect on the next poll cycle with no restart required.
 
 ---
 
