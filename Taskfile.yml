@@ -4,7 +4,6 @@ version: "3"
 # Only requirement: https://taskfile.dev — everything else runs inside Docker.
 #
 # Common workflows:
-#   task build:image   Build the Docker builder image (once, then cached)
 #   task build         Build all platforms (windows, linux, macos)
 #   task build:windows Build Windows amd64 only
 #   task build:linux   Build Linux amd64 only
@@ -25,25 +24,29 @@ tasks:
   # ── Docker image ──────────────────────────────────────────────────────────
 
   build:image:
-    desc: Build the Docker builder image (run once; cached thereafter)
+    internal: true
     cmd: docker build -t {{.IMAGE}} build/
 
   # ── Builds ────────────────────────────────────────────────────────────────
 
   build:
     desc: Build all platforms (windows amd64, linux amd64, macos amd64/arm64)
+    deps: [build:image]
     cmd: "{{.DOCKER_RUN}} sh build/build.sh"
 
   build:windows:
     desc: Build Windows amd64 binary only
+    deps: [build:image]
     cmd: "{{.DOCKER_RUN}} sh build/build.sh windows-only"
 
   build:linux:
     desc: Build Linux amd64 binary only
+    deps: [build:image]
     cmd: "{{.DOCKER_RUN}} sh build/build.sh linux-only"
 
   build:mac:
     desc: Build macOS amd64 + arm64 binaries only
+    deps: [build:image]
     cmd: "{{.DOCKER_RUN}} sh build/build.sh mac-only"
 
   # ── Code quality ──────────────────────────────────────────────────────────

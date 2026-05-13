@@ -78,12 +78,6 @@ radpresence start
 
 Requires [Docker](https://www.docker.com/) and [Task](https://taskfile.dev).
 
-**First-time setup — build the Docker builder image (once):**
-
-```
-task build:image
-```
-
 ### Build Tasks
 
 | Task | Description |
