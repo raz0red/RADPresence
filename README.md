@@ -17,8 +17,6 @@ Inspired by [CheevoPresence](https://github.com/denzi-gh/CheevoPresence) — rei
 - Clears presence automatically when you stop playing
 - Runs as a native background service (Windows SCM / macOS launchd / Linux systemd) — starts on login, no interaction needed
 - Single binary — no runtime, no installer, no dependencies
-- Cross-compiles for Windows, Linux, and macOS from any machine via [Task](https://taskfile.dev) + Docker — no Go toolchain required locally
-- CI/CD via GitHub Actions — every push validates and builds; version tags produce a release with attached binaries automatically
 
 ---
 
