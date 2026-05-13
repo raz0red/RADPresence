@@ -157,8 +157,8 @@ func cmdRun() *cobra.Command {
 			if cfg.Username == "" || cfg.APIKey == "" {
 				return fmt.Errorf(
 					"username and apikey are required\n" +
-"  save permanently: radpresence set --username X --apikey Y\n" +
-					"  or pass inline:   radpresence run --username X --apikey Y",
+						"  save permanently: radpresence set --username X --apikey Y\n" +
+						"  or pass inline:   radpresence run --username X --apikey Y",
 				)
 			}
 
