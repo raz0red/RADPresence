@@ -40,17 +40,28 @@ export default function App() {
 
       <main className="relative z-10 pt-32 pb-24 flex flex-col items-center">
         {/* Split Hero Section */}
-        <section className="w-full max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 mb-32">
+        <section className="w-full max-w-5xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 mb-32">
           
-          <div className="flex-1 text-center lg:text-left flex flex-col items-center lg:items-start pt-8 max-w-2xl">
+          <div className="w-full max-w-xl text-center lg:text-left flex flex-col items-center lg:items-start pt-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blurple-500/10 border border-blurple-500/20 text-blurple-300 text-sm mb-6"
+              className="flex flex-col sm:flex-row items-center gap-3 mb-6"
             >
-              <Zap size={14} className="text-retro-gold" />
-              <span className="font-medium">Cross-platform. Single binary. Zero dependencies.</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blurple-500/10 border border-blurple-500/20 text-blurple-300 text-sm font-medium">
+                <Zap size={14} className="text-retro-gold shrink-0" />
+                <span>Cross-platform. Single binary.</span>
+              </div>
+              <a 
+                href="https://www.webrcade.com" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/50 hover:bg-zinc-800 border border-white/5 hover:border-white/10 text-zinc-300 text-sm transition-colors"
+              >
+                <img src="https://play.webrcade.com/favicon.ico" alt="webЯcade" className="w-4 h-4 rounded-sm" onError={(e) => e.currentTarget.style.display = 'none'} />
+                <span>From the developers of <span className="text-white font-medium">webЯcade</span></span>
+              </a>
             </motion.div>
 
             <motion.h1
@@ -60,7 +71,7 @@ export default function App() {
               className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter leading-[1.05] bg-gradient-to-br from-white via-zinc-200 to-zinc-500 bg-clip-text text-transparent mb-6"
             >
               Show off your <br className="hidden lg:block" />
-              <span className="text-blurple-500 bg-clip-text text-transparent bg-gradient-to-r from-blurple-500 to-indigo-400 inline-block break-words max-w-full">RetroAchievements</span>
+              <span className="text-blurple-500 bg-clip-text text-transparent bg-gradient-to-r from-blurple-500 to-indigo-400">RetroAchievements</span>
               <br className="hidden lg:block" /> on Discord.
             </motion.h1>
 
@@ -99,17 +110,31 @@ export default function App() {
                 <span>View Source</span>
               </a>
             </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-6 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 text-sm text-zinc-400 font-medium w-full"
+            >
+              <span>Available for Windows, macOS, and Linux</span>
+              <div className="flex items-center gap-2.5 text-zinc-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 448 512" fill="currentColor"><path d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 448 512" fill="currentColor"><path d="M220.8 123.3c1 .5 1.8 1.7 3 1.7 1.1 0 2.8-.4 2.9-1.5.2-1.4-1.9-2.3-3.2-2.9-1.7-.7-3.9-1-5.5-.1-.4.2-.8.7-.6 1.1.3 1.3 2.3 1.1 3.4 1.7zm-21.9 1.7c1.2 0 2-1.2 3-1.7 1.1-.6 3.1-.4 3.5-1.7.2-.4-.2-.9-.6-1.1-1.6-.9-3.8-.6-5.5.1-1.3.6-3.4 1.5-3.2 2.9.1 1.1 1.8 1.5 2.8 1.5zM420 432c-3.1 3-5.2 6-6 9-7.7 20 20 41.5 35.8 48s-1.8 14-5.5 15c-15.6 4.3-51.5-6.8-68-15-5 8.7-23.7 17.5-44.5 12-25.5-6.7-27.2-24.8-28-28.5L309 462l-22.3-24.5c41 21.6 94 48 109 50 .5-6-3-10-8.5-15.5-43-42.5-63.5-43.5-69.5-46-24-10-44.5-9-51.5-9s-26.5 0-51.5 9c-6 2.5-25.5 3.5-69.5 46-5.5 5.5-9 9.5-8.5 15.5 15-2 68-28.5 109-50l-22.3 24.5-5.2 10.5c-.8 3.7-2.5 21.8-28 28.5-20.8 5.5-39.5-3.3-44.5-12-16.5 8.2-52.5 19.3-68 15-3.7-1 5.3-7 5.5-15 15.8-6.5 43.5-28 35.8-48-.8-3-3-6-6-9C33 421.5 0 380 0 310c0-62 57.5-123 75-144L75 147c2-39.5 32-90 83-111C203 17 224 16 224 16s21 1 66 20c51 21 81 71.5 83 111l0 19c17.5 21 75 82 75 144 0 70-33 111.5-28 122zm-289-94.5c0-33.5-25.5-61-57-61-31.5 0-57.5 26.5-57.5 61 0 33 25.5 60.5 57.5 60.5 31.5 0 57-27.5 57-60.5zm259 0c0-33-25.5-60.5-57-60.5-31.5 0-57 27.5-57 61 0 33 25.5 60.5 57 60.5 31.5 0 57-27.5 57-60.5zm-155-4.5c0 14.5-14 26-31 26-17 0-31.5-11.5-31.5-26 0-14 14.5-25.5 31.5-25.5 17 0 31 11.5 31 25.5zm100.5 0c0 14-14 25.5-31 25.5-17 0-31.5-11.5-31.5-25.5 0-14 14.5-26 31.5-26 17 0 31 12 31 26zM224 336c13.5 0 30-10 32.5-21 2-9-19-12.5-32.5-12.5-13.5 0-34.5 3.5-32.5 12.5 2.5 11 19 21 32.5 21z"/></svg>
+              </div>
+            </motion.div>
           </div>
 
           <motion.div 
             initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.7, delay: 0.2, type: "spring" }}
-            className="w-full lg:w-auto flex justify-center relative shrink-0"
+            className="w-full lg:w-auto flex justify-center relative shrink-0 pt-6 lg:pt-0"
           >
             <div className="absolute inset-0 bg-blurple-500/20 blur-[100px] rounded-full scale-75" />
             
-            <div className="relative transform-gpu hover:scale-[1.02] transition-transform duration-500 mx-auto shadow-2xl shadow-blurple-500/20 rounded-2xl overflow-hidden border border-white/10 flex justify-center bg-[#1E1F22] w-full max-w-[293px]">
+            <div className="relative transform-gpu hover:scale-[1.02] transition-transform duration-500 mx-auto shadow-2xl shadow-blurple-500/20 rounded-[20px] overflow-hidden border border-white/10 flex justify-center bg-[#1E1F22] w-full max-w-[260px]">
               <img
                 src="https://raw.githubusercontent.com/raz0red/RADPresence/master/.github/assets/screenshot.png"
                 alt="Discord Rich Presence Showcasing RetroAchievements"
@@ -265,8 +290,9 @@ export default function App() {
             <span className="text-blurple-500">RAD</span>
             <span className="text-zinc-400">Presence</span>
           </div>
-          <p className="text-zinc-500 text-sm">
-            Not officially affiliated with RetroAchievements or Discord.
+          <p className="text-zinc-500 text-sm text-center md:text-left">
+            Not officially affiliated with RetroAchievements or Discord.<br/>
+            From the developers of <a href="https://www.webrcade.com" className="text-zinc-400 hover:text-white underline underline-offset-4 decoration-zinc-700 transition" target="_blank" rel="noreferrer">webЯcade</a>.
           </p>
           <div className="flex gap-4">
             <a href={GITHUB_URL} className="text-zinc-500 hover:text-white transition-colors">
