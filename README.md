@@ -35,6 +35,10 @@ radpresence set --username YOUR_RA_USERNAME --apikey YOUR_API_KEY
 
 The Discord desktop app must be running on the same machine and logged in to the account you want the Rich Presence posted to. RAD Presence communicates with Discord over a local IPC socket — it does not work with the browser version of Discord.
 
+> **Important:** Rich Presence requires the **"Display current activity as a status message"** setting to be enabled in Discord. Go to **User Settings → Activity Privacy** and make sure it is turned on — without it, the presence will never appear even if everything else is configured correctly.
+
+> **Vesktop users (Linux):** Vesktop is supported. Install it as a Flatpak (`dev.vencord.Vesktop`) or as a native app (AppImage, etc.) — both work.
+
 ### 4. Test in the foreground first
 
 ```

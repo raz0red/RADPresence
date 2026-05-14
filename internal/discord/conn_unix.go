@@ -42,12 +42,13 @@ func IsRunning() bool {
 }
 
 // candidateDirs returns the directories to search for Discord IPC sockets,
-// in priority order: Flatpak Discord, Snap Discord, native Discord.
+// in priority order: Flatpak Discord, Flatpak Vesktop, Snap Discord, native Discord / Vesktop.
 func candidateDirs() []string {
 	var dirs []string
 	if xdg := os.Getenv("XDG_RUNTIME_DIR"); xdg != "" {
 		dirs = append(dirs,
 			filepath.Join(xdg, "app", "com.discordapp.Discord"),
+			filepath.Join(xdg, "app", "dev.vencord.Vesktop"),
 			filepath.Join(xdg, "snap.discord"),
 			xdg,
 		)
