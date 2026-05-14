@@ -280,6 +280,7 @@ func buildActivity(username string, s ra.UserSummary, g ra.Game, p ra.UserProgre
 		Assets: &discord.ActivityAssets{
 			LargeImage: g.ArtURL(),
 			LargeText:  largeText,
+			SmallImage: g.ConsoleIconURL(),
 			SmallText:  g.ConsoleName,
 		},
 		Timestamps: &discord.ActivityTimestamps{
