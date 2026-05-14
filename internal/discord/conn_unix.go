@@ -7,6 +7,7 @@ import (
 	"net"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 // openConn connects to the Discord IPC Unix socket on Linux and macOS.
@@ -24,13 +25,16 @@ func openConn() (net.Conn, error) {
 	return nil, fmt.Errorf("discord-ipc socket not found in any candidate directory — is Discord running?")
 }
 
-// IsRunning reports whether a Discord IPC socket is present on disk.
-// It does not open a connection — it is safe to call frequently.
+// IsRunning reports whether Discord is running by attempting a socket connection.
+// Unlike os.Stat, this correctly handles stale socket files left after a crash —
+// a connection to a stale socket fails with "connection refused".
 func IsRunning() bool {
 	for _, dir := range candidateDirs() {
 		for i := 0; i < 10; i++ {
 			path := filepath.Join(dir, fmt.Sprintf("discord-ipc-%d", i))
-			if _, err := os.Stat(path); err == nil {
+			conn, err := net.DialTimeout("unix", path, 100*time.Millisecond)
+			if err == nil {
+				_ = conn.Close()
 				return true
 			}
 		}
