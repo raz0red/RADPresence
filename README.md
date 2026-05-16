@@ -1,5 +1,10 @@
 # RAD Presence
 
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Discord](https://img.shields.io/badge/Discord%20%28%23rad--presence%29-5865F2?style=flat&logo=discord&logoColor=white)](https://discord.gg/C4gXN2HJAv)
+[![PayPal](https://img.shields.io/badge/PayPal-003087?style=flat&logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/webrcade)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/webrcade)
+
 **RAD Presence** = RetroAchievements Discord Presence.
 
 A cross-platform background service that mirrors your [RetroAchievements](https://retroachievements.org/) session to [Discord Rich Presence](https://discord.com/developers/docs/rich-presence/overview). Built in Go as a single self-contained binary with an optional web UI and no external dependencies.
