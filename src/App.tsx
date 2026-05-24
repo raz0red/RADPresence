@@ -41,7 +41,7 @@ export default function App() {
       <main className="relative z-10 pt-32 pb-24 flex flex-col items-center">
         {/* Split Hero Section */}
         <section className="w-full max-w-5xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 mb-32">
-          
+
           <div className="w-full max-w-xl text-center lg:text-left flex flex-col items-center lg:items-start pt-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -53,10 +53,10 @@ export default function App() {
                 <Zap size={14} className="text-retro-gold shrink-0" />
                 <span>Cross-platform. Single binary.</span>
               </div>
-              <a 
-                href="https://www.webrcade.com" 
-                target="_blank" 
-                rel="noreferrer" 
+              <a
+                href="https://www.webrcade.com"
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/50 hover:bg-zinc-800 border border-white/5 hover:border-white/10 text-zinc-300 text-sm transition-colors"
               >
                 <img src="https://play.webrcade.com/favicon.ico" alt="webЯcade" className="w-4 h-4 rounded-sm" onError={(e) => e.currentTarget.style.display = 'none'} />
@@ -110,7 +110,7 @@ export default function App() {
                 <span>View Source</span>
               </a>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -126,14 +126,14 @@ export default function App() {
             </motion.div>
           </div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.7, delay: 0.2, type: "spring" }}
             className="w-full lg:w-auto flex justify-center relative shrink-0 pt-6 lg:pt-0"
           >
             <div className="absolute inset-0 bg-blurple-500/15 blur-[60px] rounded-full scale-75" />
-            
+
             <div className="relative transform-gpu hover:scale-[1.02] transition-transform duration-500 mx-auto shadow-2xl shadow-blurple-500/20 rounded-[20px] overflow-hidden border border-white/10 flex justify-center bg-[#1E1F22] w-full max-w-[260px]">
               <img
                 src="/screenshot.png"
@@ -155,25 +155,25 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <FeatureCard 
+            <FeatureCard
               icon={<Server size={32} />}
               title="Native Background Service"
               description="Runs natively via Windows SCM, macOS launchd, or Linux systemd. Starts silently on login."
               className="lg:col-span-2 bg-gradient-to-br from-zinc-900 to-zinc-900/50"
             />
-            <FeatureCard 
+            <FeatureCard
               icon={<Layers size={32} />}
               title="Single Binary"
               description="No runtime needed. No installers. Just drop the executable and run."
               className="bg-gradient-to-br from-zinc-900 to-zinc-900/50"
             />
-            <FeatureCard 
+            <FeatureCard
               icon={<Globe size={32} />}
               title="Local Web UI"
               description="Built-in, optional local dashboard to view status, tweak settings, and read logs directly from your browser."
               className="bg-gradient-to-br from-zinc-900 to-zinc-900/50"
             />
-            <FeatureCard 
+            <FeatureCard
               icon={<Activity size={32} />}
               title="Real-time Polling"
               description="Automatically detects when you start and stop playing. Updates Discord with your current progress, cover art, and more."
@@ -190,7 +190,7 @@ export default function App() {
                 Total control,<br />right from your browser.
               </h2>
               <p className="text-zinc-400 text-lg mb-8 leading-relaxed text-balance">
-                Enable the optional Web UI to get a live view of your session, 
+                Enable the optional Web UI to get a live view of your session,
                 tweak settings without restarting the service, and monitor the real-time activity log.
               </p>
               <ul className="space-y-4">
@@ -212,22 +212,22 @@ export default function App() {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-br from-blurple-500/20 to-indigo-500/20 rounded-3xl blur-2xl z-0" />
               <div className="relative z-10 grid gap-4">
-                <motion.img 
+                <motion.img
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  src="/webui-status.png" 
-                  alt="Web UI Status" 
+                  src="/webui-status.png"
+                  alt="Web UI Status"
                   loading="lazy"
                   className="rounded-xl border border-white/10 shadow-2xl skew-y-2 -rotate-2 hover:skew-y-0 hover:rotate-0 transition-transform duration-500 w-full"
                 />
-                <motion.img 
+                <motion.img
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.1 }}
-                  src="/webui-settings.png" 
-                  alt="Web UI Settings" 
+                  src="/webui-settings.png"
+                  alt="Web UI Settings"
                   loading="lazy"
                   className="rounded-xl border border-white/10 shadow-2xl -skew-y-2 rotate-2 hover:skew-y-0 hover:rotate-0 transition-transform duration-500 w-3/4 ml-auto -mt-12"
                 />
@@ -275,6 +275,17 @@ export default function App() {
               </div>
             </div>
           </div>
+          <div className="mt-6 text-zinc-500 text-sm">
+            On macOS?{" "}
+            <a href="https://github.com/raz0red/homebrew-radpresence" target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white transition-colors underline underline-offset-4 decoration-zinc-700">
+              Install via Homebrew
+            </a>
+            :
+          </div>
+          <div className="mt-2 bg-zinc-900/80 border border-white/5 rounded-xl px-5 py-3 font-mono text-sm text-zinc-300 max-w-2xl mx-auto text-left">
+            brew tap raz0red/radpresence &amp;&amp; brew install radpresence
+          </div>
+
           <div className="mt-8 flex justify-center">
             <a href={GITHUB_URL + "#getting-started"} target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white flex items-center gap-2 transition-colors border-b border-zinc-700 hover:border-zinc-400 pb-1">
               <Terminal size={18} />
