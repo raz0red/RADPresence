@@ -1,13 +1,23 @@
+import { useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Download, Github, Terminal, Zap, Globe, Layers, Activity, Server } from "lucide-react";
+import { Download, Github, Terminal, Zap, Globe, Layers, Activity, Server, Copy, Check } from "lucide-react";
 
 const GITHUB_URL = "https://github.com/raz0red/RADPresence";
 const RELEASES_URL = "https://github.com/raz0red/RADPresence/releases";
+const INSTALL_CMD = "curl -fsSL https://radpresence.com/install.sh | sh";
 
 export default function App() {
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+  const [platformTab, setPlatformTab] = useState<"unix" | "windows">("unix");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(INSTALL_CMD);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-zinc-950 overflow-x-hidden">
@@ -241,6 +251,22 @@ export default function App() {
           <h2 className="font-display font-bold text-3xl md:text-5xl tracking-tight mb-8 text-white">
             Get up and running in seconds.
           </h2>
+
+          <div className="inline-flex items-center gap-1 p-1 rounded-full bg-zinc-900/80 border border-white/10 mb-6">
+            <button
+              onClick={() => setPlatformTab("unix")}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${platformTab === "unix" ? "bg-blurple-500 text-white" : "text-zinc-400 hover:text-white"}`}
+            >
+              macOS / Linux
+            </button>
+            <button
+              onClick={() => setPlatformTab("windows")}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${platformTab === "windows" ? "bg-blurple-500 text-white" : "text-zinc-400 hover:text-white"}`}
+            >
+              Windows
+            </button>
+          </div>
+
           <div className="bg-[#1C1C1E] border border-white/10 rounded-2xl overflow-hidden shadow-2xl text-left max-w-2xl mx-auto">
             <div className="flex items-center px-4 py-3 bg-[#2D2D2F] border-b border-white/5">
               <div className="flex gap-2">
@@ -249,41 +275,85 @@ export default function App() {
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
               </div>
               <div className="ml-auto flex items-center justify-center font-mono text-[10px] text-zinc-500">
-                bash — RADPresence
+                {platformTab === "unix" ? "bash — RADPresence" : "powershell — RADPresence"}
               </div>
             </div>
             <div className="p-6 font-mono text-sm leading-relaxed overflow-x-auto">
-              <div className="flex gap-4">
-                <span className="text-zinc-600 select-none">1</span>
-                <span><span className="text-blurple-400"># Set your credentials</span></span>
-              </div>
-              <div className="flex gap-4">
-                <span className="text-zinc-600 select-none">2</span>
-                <span className="text-white">radpresence set --username <span className="text-retro-orange">YOUR_USER</span> --apikey <span className="text-retro-orange">YOUR_KEY</span></span>
-              </div>
-              <div className="flex gap-4 mt-4">
-                <span className="text-zinc-600 select-none">3</span>
-                <span><span className="text-blurple-400"># Install & start the background service</span></span>
-              </div>
-              <div className="flex gap-4">
-                <span className="text-zinc-600 select-none">4</span>
-                <span className="text-white">radpresence install</span>
-              </div>
-              <div className="flex gap-4">
-                <span className="text-zinc-600 select-none">5</span>
-                <span className="text-white">radpresence start</span>
-              </div>
+              {platformTab === "unix" ? (
+                <>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600 select-none">1</span>
+                    <span><span className="text-blurple-400"># Install RAD Presence</span></span>
+                  </div>
+                  <div className="flex gap-4 items-center justify-between group">
+                    <div className="flex gap-4 min-w-0">
+                      <span className="text-zinc-600 select-none">2</span>
+                      <span className="text-white whitespace-nowrap">curl -fsSL <span className="text-retro-orange">https://radpresence.com/install.sh</span> | sh</span>
+                    </div>
+                    <button
+                      onClick={handleCopy}
+                      aria-label="Copy install command"
+                      className="shrink-0 ml-4 text-zinc-500 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
+                    >
+                      {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+                    </button>
+                  </div>
+                  <div className="flex gap-4 mt-4">
+                    <span className="text-zinc-600 select-none">3</span>
+                    <span><span className="text-blurple-400"># Set your credentials</span></span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600 select-none">4</span>
+                    <span className="text-white">radpresence set --username <span className="text-retro-orange">YOUR_USER</span> --apikey <span className="text-retro-orange">YOUR_KEY</span></span>
+                  </div>
+                  <div className="flex gap-4 mt-4">
+                    <span className="text-zinc-600 select-none">5</span>
+                    <span><span className="text-blurple-400"># Install & start the background service</span></span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600 select-none">6</span>
+                    <span className="text-white">radpresence install</span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600 select-none">7</span>
+                    <span className="text-white">radpresence start</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600 select-none">1</span>
+                    <span className="text-blurple-400"># Download radpresence.exe</span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600 select-none">2</span>
+                    <a href={RELEASES_URL} target="_blank" rel="noreferrer" className="text-white underline underline-offset-4 decoration-zinc-700 hover:decoration-zinc-400 transition-colors">
+                      github.com/raz0red/RADPresence/releases
+                    </a>
+                  </div>
+                  <div className="flex gap-4 mt-4">
+                    <span className="text-zinc-600 select-none">3</span>
+                    <span><span className="text-blurple-400"># Set your credentials</span></span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600 select-none">4</span>
+                    <span className="text-white">radpresence set --username <span className="text-retro-orange">YOUR_USER</span> --apikey <span className="text-retro-orange">YOUR_KEY</span></span>
+                  </div>
+                  <div className="flex gap-4 mt-4">
+                    <span className="text-zinc-600 select-none">5</span>
+                    <span><span className="text-blurple-400"># Install & start the background service (as Administrator)</span></span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600 select-none">6</span>
+                    <span className="text-white">radpresence install</span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600 select-none">7</span>
+                    <span className="text-white">radpresence start</span>
+                  </div>
+                </>
+              )}
             </div>
-          </div>
-          <div className="mt-6 text-zinc-500 text-sm">
-            On macOS?{" "}
-            <a href="https://github.com/raz0red/homebrew-radpresence" target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white transition-colors underline underline-offset-4 decoration-zinc-700">
-              Install via Homebrew
-            </a>
-            :
-          </div>
-          <div className="mt-2 bg-zinc-900/80 border border-white/5 rounded-xl px-5 py-3 font-mono text-sm text-zinc-300 max-w-2xl mx-auto text-left">
-            brew tap raz0red/radpresence &amp;&amp; brew install radpresence
           </div>
 
           <div className="mt-8 flex justify-center">
