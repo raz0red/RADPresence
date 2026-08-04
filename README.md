@@ -24,25 +24,15 @@ A cross-platform background service that mirrors your [RetroAchievements](https:
 
 ---
 
-## Installing via Homebrew (macOS)
-
-The easiest way to install on macOS is via the [Homebrew](https://brew.sh/) tap:
+## Quick Install (macOS / Linux)
 
 ```sh
-brew tap raz0red/radpresence
-brew install radpresence
+curl -fsSL https://radpresence.com/install.sh | sh
 ```
 
-Then follow steps 1–4 in [Getting Started](#getting-started) below to configure your credentials and verify everything is working before installing the background service.
+This downloads the latest release for your platform straight to `~/.local/bin/radpresence` — no Gatekeeper/quarantine prompts, since the file never passes through a browser. Then follow steps 1–4 in [Getting Started](#getting-started) below to configure your credentials and verify everything is working before installing the background service.
 
-To update to a new version:
-
-```sh
-brew update
-brew upgrade radpresence
-radpresence stop
-radpresence start
-```
+Windows users: download `radpresence.exe` from the [Releases page](https://github.com/raz0red/RADPresence/releases) and continue with [Getting Started](#getting-started).
 
 ---
 
