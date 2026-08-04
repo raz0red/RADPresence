@@ -357,7 +357,7 @@ export default function App() {
           </div>
 
           <div className="mt-8 flex justify-center">
-            <a href={GITHUB_URL + "#getting-started"} target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white flex items-center gap-2 transition-colors border-b border-zinc-700 hover:border-zinc-400 pb-1">
+            <a href={GITHUB_URL + "#quick-install-macos--linux"} target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white flex items-center gap-2 transition-colors border-b border-zinc-700 hover:border-zinc-400 pb-1">
               <Terminal size={18} />
               Read the full installation guide
             </a>
