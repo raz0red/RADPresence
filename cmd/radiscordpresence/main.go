@@ -291,14 +291,33 @@ func openBrowser(url string) error {
 	}
 }
 
+// guardNotRoot refuses to run service-management commands as root/sudo on
+// macOS/Linux. RAD Presence installs as a per-user launchd/systemd agent —
+// no elevation is ever needed there, and running under sudo resolves the
+// service file (by process UID) and the config directory (by $HOME, which
+// plain `sudo` leaves pointed at the invoking user) for two different
+// users, producing a broken, duplicate install.
+//
+// os.Geteuid() returns -1 on Windows, so this is a no-op there, where
+// Administrator genuinely is required by the Service Control Manager.
+func guardNotRoot() error {
+	if os.Geteuid() == 0 {
+		return fmt.Errorf("do not run this as root/sudo — RAD Presence installs as a per-user service and needs no elevation on macOS/Linux; re-run without sudo")
+	}
+	return nil
+}
+
 // cmdInstall — register as a system service.
 func cmdInstall() *cobra.Command {
 	return &cobra.Command{
 		Use:   "install",
-		Short: "Install as a system service (requires elevated privileges)",
+		Short: "Install as a system service",
 		RunE: func(_ *cobra.Command, _ []string) error {
+			if err := guardNotRoot(); err != nil {
+				return err
+			}
 			if err := svc.Install(); err != nil {
-				return fmt.Errorf("install failed: %w\nTip: on Windows run as Administrator; on Linux/macOS use sudo", err)
+				return fmt.Errorf("install failed: %w\nTip: on Windows run as Administrator", err)
 			}
 			fmt.Println("Service installed. Run: radpresence start")
 			return nil
@@ -312,6 +331,9 @@ func cmdUninstall() *cobra.Command {
 		Use:   "uninstall",
 		Short: "Remove the system service",
 		RunE: func(_ *cobra.Command, _ []string) error {
+			if err := guardNotRoot(); err != nil {
+				return err
+			}
 			if err := svc.Uninstall(); err != nil {
 				return fmt.Errorf("uninstall failed: %w", err)
 			}
@@ -327,6 +349,9 @@ func cmdStart() *cobra.Command {
 		Use:   "start",
 		Short: "Start the installed service",
 		RunE: func(_ *cobra.Command, _ []string) error {
+			if err := guardNotRoot(); err != nil {
+				return err
+			}
 			if err := svc.Start(); err != nil {
 				return fmt.Errorf("start failed: %w", err)
 			}
@@ -342,6 +367,9 @@ func cmdStop() *cobra.Command {
 		Use:   "stop",
 		Short: "Stop the running service",
 		RunE: func(_ *cobra.Command, _ []string) error {
+			if err := guardNotRoot(); err != nil {
+				return err
+			}
 			if err := svc.Stop(); err != nil {
 				return fmt.Errorf("stop failed: %w", err)
 			}

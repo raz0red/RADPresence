@@ -7,6 +7,8 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
+	"runtime"
 
 	ksvc "github.com/kardianos/service"
 
@@ -23,7 +25,15 @@ var svcConfig = &ksvc.Config{
 		// Install as a user service (runs under the logged-in user's account).
 		// This means no admin rights required, and %APPDATA% / config paths
 		// resolve correctly to the current user's profile.
+		//
+		// Note: kardianos/service only honors UserService on macOS/Linux —
+		// on Windows it always registers with the Service Control Manager,
+		// which does require Administrator regardless of this setting.
 		"UserService": true,
+		// kardianos/service defaults RunAtLoad to false, which means the
+		// launchd/systemd unit is only ever started by a manual
+		// `radpresence start` and never comes up again after a reboot.
+		"RunAtLoad": true,
 	},
 }
 
@@ -111,6 +121,8 @@ func Run() error {
 // service registration so the service process (which may run as LocalSystem
 // without user environment variables) can locate the correct config file.
 func Install() error {
+	warnIfHomebrewAgentPresent()
+
 	dir, err := config.Dir()
 	if err != nil {
 		return fmt.Errorf("resolving config dir: %w", err)
@@ -121,6 +133,29 @@ func Install() error {
 		return err
 	}
 	return s.Install()
+}
+
+// warnIfHomebrewAgentPresent checks for a LaunchAgent left behind by the
+// Homebrew formula and warns rather than touching it — it's not ours to
+// delete, but running both at once means two instances fighting over the
+// same config directory and web UI port.
+func warnIfHomebrewAgentPresent() {
+	if runtime.GOOS != "darwin" {
+		return
+	}
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return
+	}
+	brewPlist := filepath.Join(home, "Library", "LaunchAgents", "homebrew.mxcl.radpresence.plist")
+	if _, err := os.Stat(brewPlist); err != nil {
+		return
+	}
+	fmt.Fprintln(os.Stderr, "warning: found a Homebrew-managed RAD Presence agent at")
+	fmt.Fprintln(os.Stderr, "  "+brewPlist)
+	fmt.Fprintln(os.Stderr, "Installing this one too will leave two instances fighting over the same config and web UI port.")
+	fmt.Fprintln(os.Stderr, "Remove the Homebrew one first: brew services stop radpresence && brew uninstall radpresence")
+	fmt.Fprintln(os.Stderr)
 }
 
 // Uninstall removes the system service registration.
